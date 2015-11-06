@@ -10,13 +10,14 @@ app.controller("SiteController", function ($scope, $http) {
 	  }).
 	  error(function (data, status, headers, config) {
 						   //$("#spinner").hide();
-		  alert("erro");
+		  alert(status);
+		  alert(headers);
 	  })
-				 .finally(function () {
-						   // Hide loading spinner whether our call succeeded or failed.
-						   $scope.loading = false;
-				 });
-				
+	  .finally(function () {
+			   // Hide loading spinner whether our call succeeded or failed.
+			   $scope.loading = false;
+	  });
+			
 });
 
 /*
