@@ -19,7 +19,7 @@ app.controller("SiteController", function ($scope, $http) {
 				
 });
 
-
+/*
 $(document).ready(function(){
 	$('#btnSubmit').click(function(){
 		alert("Button Pressed !!");
@@ -53,3 +53,4 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	 
  });  
 
+*/
