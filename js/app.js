@@ -1,21 +1,20 @@
 var app = angular.module("OneBoxApp", []);
 app.controller("SiteController", function ($scope, $http) {
 			   $scope.loading = true;
-			  
-	$http.get('https://ws.iota.net.au/OneBox.Service/api/sites').
+
+			   
+$http.get('https://ws.iota.net.au/OneBox.Service/api/sites').
 	  success(function (data, status, headers, config) {
-						   //$("#spinner").hide();
 		  $scope.products = data;
 		 
-	  }).
-	  error(function (data, status, headers, config) {
-						   //$("#spinner").hide();
-		  alert(data);
-		  alert(headers);
+	  })
+	  .error(function (data, status, headers, config) {
+		  alert('Error found ' + status);
+		  alert('Error found ' + headers);
 	  })
 	  .finally(function () {
-			   // Hide loading spinner whether our call succeeded or failed.
-			   $scope.loading = false;
+	      // Hide loading spinner whether our call succeeded or failed.
+		  $scope.loading = false;
 	  });
 			
 });
