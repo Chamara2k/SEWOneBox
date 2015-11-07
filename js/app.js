@@ -10,7 +10,7 @@ app.controller("SiteController", function ($scope, $http) {
 	  }).
 	  error(function (data, status, headers, config) {
 						   //$("#spinner").hide();
-		  alert(status);
+		  alert(data);
 		  alert(headers);
 	  })
 	  .finally(function () {
