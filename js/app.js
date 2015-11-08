@@ -1,9 +1,11 @@
 var app = angular.module("OneBoxApp", []);
 app.controller("SiteController", function ($scope, $http) {
-			   $scope.loading = true;
+   $scope.loading = true;
 
+      
 			   
-$http.get('https://ws.iota.net.au/OneBox.Service/api/sites').
+			   
+    $http.get('https://ws.iota.net.au/OneBox.Service/api/sites').
 	  success(function (data, status, headers, config) {
 		  $scope.products = data;
 		 
@@ -16,8 +18,12 @@ $http.get('https://ws.iota.net.au/OneBox.Service/api/sites').
 	      // Hide loading spinner whether our call succeeded or failed.
 		  $scope.loading = false;
 	  });
-			
+		
+		
 });
+
+
+
 
 /*
 $(document).ready(function(){
