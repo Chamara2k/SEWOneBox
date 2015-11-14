@@ -5,9 +5,14 @@
      
    <meta name="viewport" content="width=device-width, initial-scale=1" />
    <script src="./js/angular.min.js"></script>
-   <link rel="stylesheet" href="./css/bootstrap.min.css">
+    
+   <!-- <link rel="stylesheet" href="./css/bootstrap.min.css">
+  
    <script src="./js/jquery-1.11.3.min.js"></script>
-   <script src="./js/bootstrap.min.js"></script> 
+   <script src="./js/bootstrap.min.js"></script>  -->
+   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
       
    <script src="./js/app.js"></script> 
      
@@ -24,6 +29,8 @@
 		 table .collapse.in {
 				  display: table-row !important;
 		 }
+		 
+	
    </style>
    
    <style>
@@ -31,6 +38,13 @@
         width: 200px;
         height: 200px;
       }
+	  
+	  
+	  .blink {
+		 animation-duration: 1s;
+		 animation-iteration-count: infinite;
+		 animation-name: blink;
+	  }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js"></script>
   
@@ -88,10 +102,10 @@
 					 <tbody ng-repeat="product in products | filter:search">
 							  <tr  data-toggle="collapse" data-target="#{{product.SiteId}}" style="background-color:{{product.CurrentStatus == 'FAILED'?'#993366':''}}; color:{{product.CurrentStatus == 'FAILED'?'white':'black'}};">
 									<!-- <td>{{product.SiteId}}</td> -->
-									<td>{{product.SiteName}}</td>
+									<td><a href="">{{product.SiteName}}</a></td>
 									<td>{{product.CustomerName}} </td>
 									<!-- <td></td> -->
-									<td>{{product.CurrentStatus}}</td>
+									<td><div class="{{product.CurrentStatus == 'FAILED'?'label label-square label-danger':'label label-square label-success'}}" data-original-title="" title="">{{product.CurrentStatus}}</div></td>
 									<!-- <td><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo3"></button></td> -->
 							  </tr>
 							
@@ -106,37 +120,96 @@
 														<td>Suburb: </td>
 														<td><b>{{product.Suburb}}</b></td>
 														<td>High Level Alarm: </td>
-														<td><b>{{product.HighLevelAlarm}}</b></td>
-														<td rowspan="5"><div id="map"></div></td>
+														<td style="color:{{product.HighLevelAlarm != 'OK'?'red':'black'}}"><b>{{product.HighLevelAlarm}}</b></td>
+														<td rowspan="5"><img src="https://maps.googleapis.com/maps/api/staticmap?center={{product.lat}},{{product.lon}}&zoom=13&size=600x300&maptype=roadmap&markers=color:red%7Clabel:C%7C{{product.lat}},{{product.lon}}&key=AIzaSyA60ga_oWX_PVEJREhy5tpZPHYZjEVDmuY" width="80%" height="100%" style="float:right" /></td>
 													</tr>
 												    <tr>
 														<td>Address: </td>
 														<td><b>{{product.Address}}</b></td>
 														<td>Pump Status: </td>
-														<td><b>{{product.PumpStatus}}</b></td>
+														<td style="color:{{product.PumpStatus != 'STOPPED'?'red':'black'}}" class="blink"><b>{{product.PumpStatus}}</b></td>
 													</tr>
 												   
 												    <tr>
 														<td>Power Status: </td>
-														<td><b>{{product.PowerStatus}}</b></td>
+														<td style="color:{{product.PowerStatus != 'OK'?'red':'black'}}"><b>{{product.PowerStatus}}</b></td>
 														<td>Pump Inhibit Status: </td>
 														<td><b>{{product.PumpInhibitStatus}}</b></td>
 													</tr>
 													
 													<tr>
 														<td>Peak Shift Status: </td>
-														<td><b>{{product.PeakShiftingStatus}}</b></td>
+														<td style="color:{{product.PeakShiftingStatus != 'OFF'?'red':'black'}}"><b>{{product.PeakShiftingStatus}}</b></td>
 														<td>Antisepticity Status: </td>
-														<td><b>{{product.AntiSepticityStatus}}</b></td>
+														<td style="color:{{product.AntiSepticityStatus != 'OFF'?'red':'black'}}"><b>{{product.AntiSepticityStatus}}</b></td>
 													</tr>
 												   
 												    <tr>
 														<td>Flushing Mode: </td>
-														<td><b>{{product.FlushingMode}}</b></td>
+														<td style="color:{{product.FlushingMode != 'OFF'?'red':'black'}}"><b>{{product.FlushingMode}}</b></td>
 														<td>Tank Level: </td>
 														<td><b>{{product.TankLevel}}</b></td>
 													</tr>
-																								  
+													
+
+													<tr>
+														<td colspan="4"></td>
+													</tr>
+													
+													<tr>
+														<td colspan="5">
+															<ul class="nav nav-tabs">
+																<li class="active"><a data-toggle="tab" href="#home">Pumping Profile</a></li>
+																<li><a data-toggle="tab" href="#menu1">Station Overview</a></li>
+																<li><a data-toggle="tab" href="#menu2">Status</a></li>
+																<li><a data-toggle="tab" href="#menu3">Rainfall</a></li>
+															</ul>
+														</td>
+													</tr>
+													
+													<tr>
+														<td colspan="5">
+															<div class="tab-content">
+																<div id="home" class="tab-pane fade in active">
+																	<table class="table table-striped  table-hover" style="border-collapse:collapse;">
+																		<tr>
+																			<td>Start</td>
+																			<td>
+																				<div class="input-group date" id="flowStartDate" data-date="2014-01-01" data-date-format="yyyy-mm-dd">
+																				   <input class="form-control" type="text" value="2014-01-01">
+																				   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+																				</div>
+																			</td>
+																			<td>End</td>
+																			<td>
+																				<div class="input-group date" id="flowStartDate" data-date="2014-01-01" data-date-format="yyyy-mm-dd">
+																				   <input class="form-control" type="text" value="2014-01-01">
+																				   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+																				</div>
+																			</td>	
+																			<td>
+																				<button type="button" class="btn btn-primary active">Show Pumping Profile</button>
+																			</td>
+																		</tr>	
+																	</table>	
+																</div>
+																<div id="menu1" class="tab-pane fade">
+																  <h3>Menu 1</h3>
+																  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+																</div>
+																<div id="menu2" class="tab-pane fade">
+																  <h3>Menu 2</h3>
+																  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+																</div>
+																<div id="menu3" class="tab-pane fade">
+																  <h3>Menu 3</h3>
+																  <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+																</div>
+															</div>
+														</td>
+													</tr>
+													
+																	
 												   </table>
 												   <!-- {{product.lat}} <br />
 												   {{product.CustomerId}} <br />
