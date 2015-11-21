@@ -4,8 +4,14 @@ app.controller("SiteController", function ($scope, $http) {
 
       
 			   
+    $http.get('https://ws.iota.net.au/OneBox.Service/api/sites').then(function(response){
+		$scope.products = response.data;		
+		$scope.loading = false;
+	})
 			   
-    $http.get('https://ws.iota.net.au/OneBox.Service/api/sites').
+			   
+   /* $http.get('https://ws.iota.net.au/OneBox.Service/api/sites').
+
 	  success(function (data, status, headers, config) {
 		  $scope.products = data;
 		 
@@ -18,7 +24,7 @@ app.controller("SiteController", function ($scope, $http) {
 	      // Hide loading spinner whether our call succeeded or failed.
 		  $scope.loading = false;
 	  });
-		
+	*/	
 		
 });
 
