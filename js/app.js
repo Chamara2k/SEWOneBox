@@ -5,7 +5,6 @@ app.controller("SiteController", function ($scope, $http) {
       
     //new code by cw
     $http.get('https://ws.iota.net.au/OneBox.Service/api/sites').then(function(response){
-		alert(response.data);
 		$scope.products = response.data;
 		$scope.loading = false;
 	})
