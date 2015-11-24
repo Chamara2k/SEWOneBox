@@ -8,6 +8,7 @@
     <!-- versionCode is optional and Android only -->
 
     <name>SEW OneBox</name>
+    <icon src="images/onebox.png" platform="android" qualifier="ldpi" />
 
     <description>
 		An example for OneBox build docs. 
@@ -17,7 +18,7 @@
 		Chamara Wick 
     </author>
 
-	<plugin name="com.indigoway.cordova.whitelist.whitelistplugin" spec="1.1.1" source="pgb" />
+    <plugin name="com.indigoway.cordova.whitelist.whitelistplugin" spec="1.1.1" source="pgb" />
 	
     <!--
       This allows your app to load assets from all *.phongap.com domains
